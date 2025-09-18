@@ -27,7 +27,7 @@ Whether you’re craving something new or want to try something with ingredients
 ## 🖼️ Preview  
 
 > 🚀 **Live Demo (Optional)**  
-> [Click Here to View](https://your-live-demo-link.com) *(Add your GitHub Pages/Netlify link here)*  
+> [Click Here to View](https://manav-0n-site.github.io/Recipe-Finder/) *(Add your GitHub Pages/Netlify link here)*  
 
 ![QuickBite Screenshot](images/logo.png)
 
