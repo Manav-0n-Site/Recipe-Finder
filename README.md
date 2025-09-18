@@ -1,3 +1,9 @@
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+
+
 # 🍽️ QuickBite - main-Page  
 
 Welcome to **QuickBite**, a simple yet beautiful landing page created to showcase a smart **Recipe Finder Website**.  
