@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quickbite-by-manav</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --theme-color: #ff8800; /* Deep Orange for Quickbite */
+            --theme-color-dark: #cc7000; /* Darker orange for hover/active states */
+            --dotted-line-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* General Body Styles */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #fcebeb, #f0f8ff); /* Light gradient background */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Navbar - Updated for Quickbite header */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: linear-gradient(to right, #fcebeb, #f0f8ff); /* Same gradient as the body */
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container { /* New container for logo image and text */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-container img {
+            height: 40px; /* Adjust Quickbite logo height as needed */
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333; /* Dark color for text */
+        }
+        /* Color for "Quickbite" text, if it's not part of the logo image */
+        .logo-text span {
+            color: var(--theme-color); /* Orange for 'bite' part */
+        }
+
+
+        .nav-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            position: relative; /* For the active/hover underline positioning */
+        }
+
+        .nav-links ul li {
+            margin-right: 40px; /* Increased spacing between links */
+            position: relative; /* For individual link's pseudo-element */
+        }
+
+        .nav-links ul li a {
+            text-decoration: none;
+            color: #666; /* Slightly lighter color for nav links */
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+            padding-bottom: 10px; /* Add padding for the underline */
+        }
+
+        .nav-links ul li a:hover {
+            color: var(--theme-color); /* Orange on hover */
+        }
+
+        /* Underline bar for both hover and active states */
+        .nav-links ul li a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0; /* Position exactly at the bottom of the link */
+            transform: translateX(-50%) scaleX(0); /* Start invisible and centered */
+            width: 100%; /* Take full width of the parent link */
+            height: 3px;
+            background-color: var(--theme-color);
+            border-radius: 2px;
+            transition: transform 0.3s ease-out; /* Animate the scale */
+        }
+
+        /* Show underline on hover */
+        .nav-links ul li a:hover::after {
+            transform: translateX(-50%) scaleX(1); /* Scale to full width */
+        }
+
+        /* Show and keep underline for active link */
+        .nav-links ul li.active a {
+            color: var(--theme-color); /* Active link text is orange */
+        }
+        .nav-links ul li.active a::after {
+            transform: translateX(-50%) scaleX(1); /* Ensure active link's bar is visible */
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px; /* Space between Sign In and Sign Up */
+            align-items: center;
+        }
+
+        .sign-in-button {
+            background-color: transparent; /* No background */
+            color: #666; /* Text color */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .sign-in-button:hover {
+            color: var(--theme-color); /* Orange text on hover */
+        }
+
+        .sign-up-button {
+            background-color: var(--theme-color);
+            color: white;
+            border: none;
+            padding: 12px 30px; /* Slightly larger padding for Sign Up */
+            border-radius: 30px; /* More rounded */
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3); /* Subtle orange shadow */
+        }
+
+        .sign-up-button:hover {
+            background-color: var(--theme-color-dark);
+        }
+
+        /* Hero Section (no changes here, keeping previous styles) */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0px 0;
+            position: relative;
+            height: calc(100vh - 90px); /* Adjust based on navbar height */
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding-left: 100px;
+            max-width: 50%;
+            z-index: 2; /* Ensure content is above background elements */
+        }
+
+        /* Updated H1 for a 'cute, bubbly' style */
+        .hero-content h1 {
+            font-family: 'Inter', sans-serif; /* Use Inter font */
+            font-size: 4em; /* Make it larger for impact */
+            font-weight: 800; /* Extra bold for a bubbly feel */
+            color: #333;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(255, 140, 0, 0.2); /* Subtle orange glow */
+        }
+
+        .hero-content p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            align-items: center; /* Align items in the button group */
+        }
+
+        .order-button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: var(--theme-color);
+            color: white;
+        }
+
+        .order-button:hover {
+            background-color: var(--theme-color-dark);
+        }
+
+        /* Search Bar Styles */
+        .search-bar {
+            position: relative; /* For icon positioning */
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input[type="search"] {
+            padding: 15px 20px 15px 50px; /* Adjust left padding for icon */
+            border: 2px solid var(--theme-color);
+            border-radius: 30px;
+            font-size: 1.1em;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            width: 250px; /* Adjust width as needed */
+        }
+
+        .search-bar input[type="search"]::placeholder {
+            color: #aaa;
+        }
+
+        .search-bar input[type="search"]:focus {
+            border-color: var(--theme-color-dark);
+            box-shadow: 0 0 8px rgba(158, 103, 35, 0.3); /* Soft orange shadow on focus */
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            color: #888;
+            font-size: 1.2em;
+            pointer-events: none; /* Make sure the icon doesn't block input clicks */
+        }
+
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding-right: 50px;
+        }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%; /* This might be needed if the image itself isn't circular */
+            z-index: 3; /* Bring the food image to the front */
+
+            /* Animation for continuous 180-degree rotation */
+            animation: rotateDish 8s linear infinite alternate; /* 8s duration, linear speed, infinite loop, alternates direction */
+        }
+
+        /* Keyframes for the rotation animation */
+        @keyframes rotateDish {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(180deg);
+            }
+        }
+
+
+        /* Decorative elements (tomatoes, basil) */
+        .tomato, .basil {
+            position: absolute;
+            z-index: 4; /* Above the food image for a layered effect */
+            width: 50px; /* Adjust size */
+            height: auto;
+        }
+
+        .tomato-1 {
+            top: 30%;
+            left: 40%;
+            transform: rotate(15deg);
+        }
+
+        .tomato-2 {
+            bottom: 20%;
+            right: 30%;
+            transform: rotate(-25deg);
+        }
+
+        .basil-1 {
+            top: 20%;
+            left: 20%;
+            width: 40px;
+        }
+
+        .basil-2 {
+            top: 60%;
+            left: 10%;
+            width: 45px;
+        }
+
+        .basil-3 {
+            bottom: 10%;
+            right: 20%;
+            width: 35px;
+        }
+
+        /* Orange Sidebar Container and Images */
+        .orange-sidebar-container {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%); /* Vertically center it */
+            width: 250px; /* Adjust width as needed to match the design */
+            height: 350px; /* Adjust height as needed to fit images */
+            background-color: var(--theme-color); /* Use orange theme color */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around; /* Distribute items evenly */
+            align-items: center;
+            padding: 20px 0; /* Add some vertical padding */
+            z-index: 1; /* Behind the main food image */
+        }
+
+        /* Individual item styling within the sidebar container */
+        .sidebar-item {
+            width: 90%; /* Allow item to take more width to fit the image and margin */
+            display: flex; /* Use flexbox for image and line if needed */
+            flex-direction: column; /* Stack image and potential line */
+            align-items: center;
+            padding-bottom: 20px; /* Space for the dotted line and margin below image */
+            margin-bottom: 20px; /* Space between items, above the dotted line */
+            border-bottom: 2px dotted var(--dotted-line-color); /* Dotted line, using variable */
+        }
+
+        /* Remove border from the last item */
+        .sidebar-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0; /* No margin after the last item */
+            padding-bottom: 0; /* No padding after the last item */
+        }
+
+        .sidebar-item img {
+            width: 80%; /* Adjust size of individual images within the container */
+            max-width: 120px; /* Example max width */
+            height: auto;
+            border-radius: 15px; /* Slightly rounded corners for the item images */
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1); /* Optional shadow for individual items */
+        }
+
+        /* Original green design element at the top right, still needed for that curve */
+        /* This will still be the original image file color */
+        .design-element.top {
+            position: absolute; /* Keep it absolute */
+            top: 0;
+            right: 0;
+            width: 60%; /* Adjust size */
+            height: auto;
+            transform: translateY(-50px); /* Adjust position */
+            z-index: 0; /* Ensure it's behind everything */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .hero-content h1 {
+                font-size: 2.8em;
+            }
+            .hero-content {
+                padding-left: 50px;
+            }
+            .orange-sidebar-container {
+                width: 200px;
+                height: 300px;
+            }
+            .sidebar-item img {
+                max-width: 100px;
+            }
+            .sidebar-item {
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+            }
+            .nav-links ul li {
+                margin-right: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 20px;
+                gap: 15px;
+            }
+            .nav-links ul {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 15px;
+            }
+            .nav-links ul li {
+                margin: 10px 0;
+            }
+            .header-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                height: auto;
+            }
+            .hero-content {
+                max-width: 90%;
+                padding: 20px;
+                order: 2; /* Content below image on mobile */
+            }
+            .hero-image-container {
+                padding: 20px;
+                order: 1;
+            }
+            .hero-image {
+                max-width: 80%;
+            }
+            /* Hide decorative elements and the sidebar on smaller screens to simplify */
+            .design-element.top, .tomato, .basil, .orange-sidebar-container {
+                display: none;
+            }
+            .hero-buttons {
+                flex-direction: column; /* Stack buttons on small screens */
+                align-items: center;
+                gap: 15px;
+            }
+            .search-bar {
+                width: 100%; /* Make search bar full width */
+            }
+            .search-bar input[type="search"] {
+                width: calc(100% - 70px); /* Adjust width to account for padding */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="images/logo.png" alt="Quickbite Logo">
+            <div class="logo-text">
+                Quick<span>bite</span>
+            </div>
+        </div>
+        <nav class="nav-links">
+            <ul>
+                <li class="active"><a href="#home" data-link="home">Home</a></li>
+                <li><a href="#menu" data-link="menu">Menu</a></li>
+                <li><a href="#service" data-link="service">Service</a></li>
+                <li><a href="#about" data-link="about">About Us</a></li>
+                <li><a href="#gallery" data-link="gallery">Gallery</a></li>
+            </ul>
+        </nav>
+        <div class="header-buttons">
+            <button class="sign-in-button" id="signInBtn">Sign In</button>
+            <button class="sign-up-button" id="signUpBtn">Sign Up</button>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="hero-content">
+            <h1>Search For <br>Recipe!</h1>
+            <p>From authentic Thai delights to global cuisines, find easy-to-follow recipes and meal inspirations right here. Simply type what you're craving into the search bar below and let Quickbite guide your culinary adventure!</p>
+            <div class="hero-buttons">
+                <button class="order-button" id="orderOnlineBtn">Contact us</button>
+                <div class="search-bar">
+                    <input type="search" placeholder="Search for food..................." id="foodSearchInput">
+                    <i class="search-icon">&#128269;</i>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <img src="images/img1.png" alt="Delicious Thai Food" class="hero-image">
+            <div class="orange-sidebar-container">
+                </div>
+            </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links ul li a');
+            const signInBtn = document.getElementById('signInBtn');
+            const signUpBtn = document.getElementById('signUpBtn');
+            const orderOnlineBtn = document.getElementById('orderOnlineBtn');
+            const foodSearchInput = document.getElementById('foodSearchInput');
+
+            // --- Navigation Links ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default link behavior
+
+                    // Remove 'active' class from all list items
+                    navLinks.forEach(item => {
+                        item.parentElement.classList.remove('active');
+                    });
+
+                    // Add 'active' class to the clicked list item
+                    this.parentElement.classList.add('active');
+
+                    // Example: Scroll to section or load content based on data-link
+                    const targetId = this.getAttribute('data-link');
+                    // In a real application, you might use:
+                    // document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+                    // Or fetch content:
+                    console.log(`Navigating to ${targetId} section.`);
+
+                    // For demonstration, you could alert or log
+                    alert(`You clicked on: ${this.textContent}`);
+                });
+            });
+
+            // --- Buttons ---
+
+            // Sign In Button
+            signInBtn.addEventListener('click', () => {
+                alert('Sign In button clicked! Redirecting to login page...');
+                // In a real application, you'd navigate:
+                // window.location.href = '/login';
+            });
+
+            // Sign Up Button
+            signUpBtn.addEventListener('click', () => {
+                alert('Sign Up button clicked! Taking you to the registration page...');
+                // In a real application, you'd navigate:
+                // window.location.href = '/register';
+            });
+
+            // Order Online Button
+            orderOnlineBtn.addEventListener('click', () => {
+                alert('Order Online! Redirecting to our ordering system...');
+                // In a real application, you'd navigate:
+                // window.location.href = '/order';
+            });
+
+            // --- Search Bar Functionality ---
+            foodSearchInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    const searchTerm = foodSearchInput.value.trim();
+                    if (searchTerm) {
+                        alert(`Searching for food: "${searchTerm}"`);
+                        // In a real application, you'd send this to a search API
+                        // Example: window.location.href = `/search?query=${encodeURIComponent(searchTerm)}`;
+                        foodSearchInput.value = ''; // Clear input after search
+                    } else {
+                        alert('Please enter a food item to search!');
+                    }
+                }
+            });
+
+            // Optional: Add click listener to the search icon
+            document.querySelector('.search-icon').addEventListener('click', () => {
+                const searchTerm = foodSearchInput.value.trim();
+                if (searchTerm) {
+                    alert(`Searching for food: "${searchTerm}"`);
+                    foodSearchInput.value = '';
+                } else {
+                    alert('Please enter a food item to search!');
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
